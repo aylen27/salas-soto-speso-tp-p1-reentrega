@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import entidades.Castillo;
@@ -38,11 +40,17 @@ public class PanelJuego extends JPanel implements Runnable {
     private boolean ganado;
     private boolean perdido;
 
+    private Image fondo;
+
     public PanelJuego() {
 
         setPreferredSize(new Dimension(Constantes.ANCHO, Constantes.ALTO));
 
         setBackground(Color.CYAN);
+
+        ImageIcon fondoIcono = new ImageIcon("img/fondo.jpg");
+
+        fondo = fondoIcono.getImage();
 
         teclado = new Teclado();
         mouse = new Mouse();
@@ -65,29 +73,68 @@ public class PanelJuego extends JPanel implements Runnable {
 
         enemigos = new Enemigo[Constantes.MAX_ENEMIGOS];
 
-        castillo = new Castillo(Constantes.LARGO_MAPA - 300, 320);
+        castillo = new Castillo(Constantes.LARGO_MAPA - 300, 280);
     }
 
     public void crearPlataformas() {
 
-        int x = 0;
-
-        while (x < Constantes.LARGO_MAPA) {
-
-            plataformas.add(new Plataforma(x, 500, 200, 40));
-
-            x += 280;
-        }
+        plataformas.clear();
 
         Random random = new Random();
 
+        // =========================
+        // PISO CON HUECOS
+        // =========================
+
+        plataformas.add(new Plataforma(0, 500, 300, 40));
+
+        plataformas.add(new Plataforma(450, 500, 350, 40));
+
+        plataformas.add(new Plataforma(950, 500, 250, 40));
+
+        plataformas.add(new Plataforma(1400, 500, 400, 40));
+
+        plataformas.add(new Plataforma(1950, 500, 300, 40));
+
+        plataformas.add(new Plataforma(2400, 500, 350, 40));
+
+        plataformas.add(new Plataforma(2900, 500, 250, 40));
+
+        // =========================
+        // PLATAFORMAS FLOTANTES
+        // =========================
+
         for (int i = 0; i < 20; i++) {
 
-            int px = 300 + random.nextInt(Constantes.LARGO_MAPA - 500);
+            int px = 300 + random.nextInt(Constantes.LARGO_MAPA - 600);
 
-            int py = 200 + random.nextInt(200);
+            // distintos niveles de altura
+            int nivel = random.nextInt(3);
 
-            plataformas.add(new Plataforma(px, py, 150, 30));
+            int py;
+
+            if (nivel == 0) {
+
+                py = 380;
+            }
+            else if (nivel == 1) {
+
+                py = 280;
+            }
+            else {
+
+                py = 180;
+            }
+
+            // tamaños aleatorios
+            int ancho = 100 + random.nextInt(120);
+
+            plataformas.add(
+                    new Plataforma(
+                            px,
+                            py,
+                            ancho,
+                            30));
         }
     }
 
@@ -297,6 +344,14 @@ public class PanelJuego extends JPanel implements Runnable {
     }
 
     public void dibujar(Graphics g) {
+
+        g.drawImage(
+                fondo,
+                0,
+                0,
+                Constantes.ANCHO,
+                Constantes.ALTO,
+                null);
 
         for (Plataforma p : plataformas) {
 
