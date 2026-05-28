@@ -22,8 +22,8 @@ public class Princesa extends Entidad {
         this.x = x;
         this.y = y;
 
-        ancho = 55;
-        alto = 100;
+        ancho = 65;
+        alto = 85;
 
         vidas = 5;
 
@@ -51,7 +51,8 @@ public class Princesa extends Entidad {
 
         if (!saltando && !cayendo) {
 
-            velocidadY = -18;
+        	velocidadY = -22;
+            
 
             saltando = true;
         }
@@ -59,25 +60,38 @@ public class Princesa extends Entidad {
 
     public void actualizar(ArrayList<Plataforma> plataformas) {
 
-        // movimiento horizontal
+        // =========================
+        // MOVIMIENTO HORIZONTAL
+        // =========================
+
         x += velocidadX;
 
-        // gravedad
+        // =========================
+        // GRAVEDAD
+        // =========================
+
         velocidadY += 1;
 
         y += velocidadY;
 
         cayendo = true;
 
+        // =========================
+        // COLISIONES CON PLATAFORMAS
+        // =========================
+
         for (Plataforma p : plataformas) {
 
             if (getBounds().intersects(p.getBounds())) {
 
-                // colisión desde arriba
-                if (velocidadY > 0
-                        && y + alto - velocidadY <= p.getY()) {
+                // =========================
+                // CAE SOBRE LA PLATAFORMA
+                // =========================
 
-                    y = p.getY() - alto;
+                if (velocidadY >= 0
+                        && y + alto - velocidadY <= p.getY() + 10) {
+
+                    y = p.getY() - alto + 8;
 
                     velocidadY = 0;
 
@@ -85,10 +99,25 @@ public class Princesa extends Entidad {
 
                     cayendo = false;
                 }
+
+                // =========================
+                // GOLPEA LA CABEZA
+                // =========================
+
+                else if (velocidadY < 0
+                        && y - velocidadY >= p.getY() + p.getAlto() - 10) {
+
+                    y = p.getY() + p.getAlto();
+
+                    velocidadY = 0;
+                }
             }
         }
 
-        // caída al vacío
+        // =========================
+        // CAÍDA AL VACÍO
+        // =========================
+
         if (y > 700) {
 
             vidas--;
@@ -113,7 +142,6 @@ public class Princesa extends Entidad {
 
     public void dibujar(Graphics g) {
 
-        // el -20 acomoda visualmente la imagen
-    	g.drawImage(imagen, x, y, ancho, alto, null);
+    		g.drawImage(imagen, x, y, ancho, alto, null);
     }
 }

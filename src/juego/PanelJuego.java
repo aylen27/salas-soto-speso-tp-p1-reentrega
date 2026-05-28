@@ -18,6 +18,7 @@ import entidades.Princesa;
 import entidades.Proyectil;
 import util.Constantes;
 
+
 public class PanelJuego extends JPanel implements Runnable {
 
     private Thread hilo;
@@ -83,58 +84,57 @@ public class PanelJuego extends JPanel implements Runnable {
         Random random = new Random();
 
         // =========================
-        // PISO CON HUECOS
+        // PISO
         // =========================
 
-        plataformas.add(new Plataforma(0, 500, 300, 40));
+        plataformas.add(new Plataforma(0, 540, 300, 40));
 
-        plataformas.add(new Plataforma(450, 500, 350, 40));
+        plataformas.add(new Plataforma(420, 540, 300, 40));
 
-        plataformas.add(new Plataforma(950, 500, 250, 40));
+        plataformas.add(new Plataforma(900, 540, 300, 40));
 
-        plataformas.add(new Plataforma(1400, 500, 400, 40));
+        plataformas.add(new Plataforma(1400, 540, 300, 40));
 
-        plataformas.add(new Plataforma(1950, 500, 300, 40));
-
-        plataformas.add(new Plataforma(2400, 500, 350, 40));
-
-        plataformas.add(new Plataforma(2900, 500, 250, 40));
+        plataformas.add(new Plataforma(1900, 540, 300, 40));
 
         // =========================
         // PLATAFORMAS FLOTANTES
         // =========================
 
-        for (int i = 0; i < 20; i++) {
+        int x = 150;
 
-            int px = 300 + random.nextInt(Constantes.LARGO_MAPA - 600);
+        for (int i = 0; i < 10; i++) {
 
-            // distintos niveles de altura
+            int ancho = 120 + random.nextInt(120);
+
             int nivel = random.nextInt(3);
 
             int py;
 
             if (nivel == 0) {
 
-                py = 380;
+                py = 450;
             }
             else if (nivel == 1) {
 
-                py = 280;
+                py = 360;
             }
             else {
 
-                py = 180;
+                py = 270;
             }
-
-            // tamaños aleatorios
-            int ancho = 100 + random.nextInt(120);
+            
+ 
 
             plataformas.add(
                     new Plataforma(
-                            px,
+                            x,
                             py,
                             ancho,
                             30));
+
+            // separación entre plataformas
+            x += 250 + random.nextInt(150);
         }
     }
 
@@ -193,23 +193,40 @@ public class PanelJuego extends JPanel implements Runnable {
 
         princesa.detener();
 
+        // IZQUIERDA
         if (teclado.izquierda) {
 
-            princesa.moverIzquierda();
+            // que no salga de la pantalla
+            if (princesa.getX() > 0) {
+
+                princesa.moverIzquierda();
+            }
         }
 
+        // DERECHA
         if (teclado.derecha) {
 
-            princesa.moverDerecha();
+            // cuando llega al centro se mueve el mapa
+            if (princesa.getX() >= 500) {
 
-            desplazamientoMapa += 5;
+                if (desplazamientoMapa < Constantes.LARGO_MAPA - Constantes.ANCHO) {
+
+                    desplazamientoMapa += 5;
+                }
+            }
+            else {
+
+                princesa.moverDerecha();
+            }
         }
 
+        // SALTO
         if (teclado.salto) {
 
             princesa.saltar();
         }
 
+        // DISPARO
         if (mouse.click && proyectil == null) {
 
             proyectil = new Proyectil(
