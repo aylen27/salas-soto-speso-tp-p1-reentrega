@@ -691,9 +691,29 @@ public class Juego extends InterfaceJuego
     public void dibujarJuego() {
 
         // Fondo
-        entorno.colorFondo(Color.CYAN);
+    	double escala = Math.max(
+    	        800.0 / fondo.getWidth(null),
+    	        600.0 / fondo.getHeight(null)
+    	);
 
-        // Plataformas
+    	int ancho = (int)(fondo.getWidth(null) * escala);
+
+    	// movimiento lento
+    	int offset = (int)(desplazamientoMapa * 0.2) % ancho;
+
+    	// IMPORTANTE: solape de 2 a 5 px
+    	int overlap = 5;
+
+    	int x1 = 400 - offset;
+    	int x2 = x1 + ancho - overlap;
+    	int x3 = x2 + ancho - overlap;
+
+    	entorno.dibujarImagen(fondo, x1, 300, 0, escala);
+    	entorno.dibujarImagen(fondo, x2, 300, 0, escala);
+    	entorno.dibujarImagen(fondo, x3, 300, 0, escala);
+        
+    	
+    	// Plataformas
         
         piso1.dibujar(entorno, desplazamientoMapa);
         piso2.dibujar(entorno, desplazamientoMapa);
