@@ -24,6 +24,8 @@ public class Juego extends InterfaceJuego
 	// El objeto Entorno que controla el tiempo y otros
 	private Entorno entorno;
 	private Princesa princesa;
+	
+	private int cooldownMuerte = 0;
 	private Plataforma piso;
 	private Plataforma piso1;
 	private Plataforma piso2;
@@ -124,11 +126,10 @@ public class Juego extends InterfaceJuego
 	 */
 	@Override
 	public void tick() {
-
-	    // Si ganó o perdió no seguimos actualizando
-	    if (ganado || perdido) {
-	        return;
-	    }
+		
+		if (cooldownMuerte > 0) {
+		    cooldownMuerte--;
+		}
 
 	    // Movimiento
 	    manejarMovimiento();
@@ -222,6 +223,9 @@ public class Juego extends InterfaceJuego
 	            250);
 
 	    batallaJefeIniciada = false;
+	    
+	    gifDerrota = new ImageIcon("img/gameover.gif").getImage();
+	    gifVictoria = new ImageIcon("img/ganaste.gif").getImage();
 	}
 	
 	// Maneja controles de movimiento y disparo
@@ -689,6 +693,38 @@ public class Juego extends InterfaceJuego
     
     
     public void dibujarJuego() {
+    	
+    	    // 🔴 SI PERDIÓ: SOLO GAME OVER Y SALIR
+    	if (perdido) {
+
+    	    entorno.dibujarRectangulo(400, 300, 800, 600, 0, Color.BLACK);
+
+    	    entorno.dibujarImagen(
+    	            gifDerrota,
+    	            400,
+    	            300,
+    	            0,
+    	            0.45
+    	    );
+
+    	    return;
+    	}
+    	
+    	// 🟢 SI GANÓ
+        if (ganado) {
+            entorno.dibujarRectangulo(400, 300, 800, 600, 0, Color.BLACK);
+
+            entorno.dibujarImagen(
+                    gifVictoria,
+                    400,
+                    300,
+                    0,
+                    0.45   
+            );
+
+            return;
+        }
+
 
         // Fondo
     	double escala = Math.max(
@@ -725,7 +761,6 @@ public class Juego extends InterfaceJuego
         piso8.dibujar(entorno, desplazamientoMapa);
         piso9.dibujar(entorno, desplazamientoMapa);
         piso10.dibujar(entorno, desplazamientoMapa);
-        piso9.dibujar(entorno, desplazamientoMapa);
         piso11.dibujar(entorno, desplazamientoMapa);
         piso12.dibujar(entorno, desplazamientoMapa);
         piso13.dibujar(entorno, desplazamientoMapa); 
@@ -811,6 +846,7 @@ public class Juego extends InterfaceJuego
                 "Vidas: " + princesa.getVidas(),
                 20,
                 30);
+        
     }
 
 	
