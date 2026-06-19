@@ -1,6 +1,8 @@
 package entidades;
 
+
 import java.awt.Color;
+import entorno.Entorno;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -18,16 +20,18 @@ public class Jefe extends Entidad {
 
         this.x = x;
         this.y = y;
-        
-        this.ancho = 120;
+
+        this.ancho = 100;
         this.alto = 120;
-        
+
         this.vidas = 10;
-        this.velocidadX = 0;
-        this.direccionY = 1;
 
         ImageIcon icono = new ImageIcon("img/bowser.png");
-        imagen = icono.getImage();
+
+        imagen = icono.getImage().getScaledInstance(
+                ancho,
+                alto,
+                Image.SCALE_SMOOTH);
 
         contadorAtaque = 0;
     }
@@ -105,57 +109,16 @@ public class Jefe extends Entidad {
     }
 
     // Dibuja el jefe en pantalla
-    public void dibujar(Graphics g, int desplazamientoMapa) {
+    public void dibujar(
+            Entorno entorno,
+            int desplazamientoMapa
+    ) {
 
-        int xPantalla = x - desplazamientoMapa;
-
-        // Si existe una imagen válida la dibujamos
-        if (imagen != null && imagen.getWidth(null) > 0) {
-
-            g.drawImage(
-                    imagen,
-                    xPantalla,
-                    y,
-                    ancho,
-                    alto,
-                    null
-            );
-        }
-
-        // Si no hay imagen dibujamos un rectángulo naranja
-        else {
-
-            g.setColor(Color.ORANGE);
-
-            g.fillRect(
-                    xPantalla,
-                    y,
-                    ancho,
-                    alto
-            );
-        }
-
-        // Dibujamos el fondo rojo de la barra de vida
-        g.setColor(Color.RED);
-
-        g.fillRect(
-                xPantalla,
-                y - 20,
-                ancho,
-                8
-        );
-
-        // Dibujamos la vida restante en verde
-        g.setColor(Color.GREEN);
-
-        int anchoVida =
-                (ancho * vidas) / 10;
-
-        g.fillRect(
-                xPantalla,
-                y - 20,
-                anchoVida,
-                8
+        entorno.dibujarImagen(
+                imagen,
+                (x - desplazamientoMapa) + ancho / 2,
+                y + alto / 2,
+                0
         );
     }
 }

@@ -1,25 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-<<<<<<< HEAD
-	<name>juegoBase</name>
-=======
-<<<<<<< HEAD
-	<name>salas-soto-speso-tp-p1-main</name>
-=======
-	<name>juegoBase</name>
->>>>>>> 920a10d93edfb9901c1a468d2e95f929b712db53
->>>>>>> 5213104c6789ad44f9ecbea8e3d834f8e854cd9e
+	<name>nuevo</name>
 	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-	</buildSpec>
-	<natures>
-=======
->>>>>>> 5213104c6789ad44f9ecbea8e3d834f8e854cd9e
 		<buildCommand>
 			<name>org.eclipse.jdt.core.javabuilder</name>
 			<arguments>
@@ -28,9 +13,5 @@
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
-<<<<<<< HEAD
-=======
->>>>>>> 920a10d93edfb9901c1a468d2e95f929b712db53
->>>>>>> 5213104c6789ad44f9ecbea8e3d834f8e854cd9e
 	</natures>
 </projectDescription>

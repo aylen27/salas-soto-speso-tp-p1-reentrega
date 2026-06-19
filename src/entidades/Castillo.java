@@ -1,10 +1,9 @@
 package entidades;
 
 import java.awt.Graphics;
+import entorno.Entorno;
 import java.awt.Image;
 import java.awt.Rectangle;
-
-// Importamos ImageIcon para cargar imágenes
 import javax.swing.ImageIcon;
 
 public class Castillo extends Entidad {
@@ -15,20 +14,22 @@ public class Castillo extends Entidad {
 
         this.x = x;
         this.y = y;
-        
+
         this.ancho = 200;
         this.alto = 260;
 
-        ImageIcon icono = new ImageIcon("img/castillo.png");
+        ImageIcon icono =
+                new ImageIcon("img/castillo.png");
 
-        imagen = icono.getImage();
+        imagen = icono.getImage().getScaledInstance(
+                ancho,
+                alto,
+                Image.SCALE_SMOOTH);
     }
 
-    // Devuelve el rectángulo de colisión del castillo
-    // desplazamientoMapa se usa para mover la cámara/mapa
+    // Devuelve el rectángulo de colisión
     public Rectangle getBoundsReal(int desplazamientoMapa) {
 
-        // Creamos y devolvemos el rectángulo de colisión
         return new Rectangle(
                 x - desplazamientoMapa,
                 y,
@@ -37,19 +38,17 @@ public class Castillo extends Entidad {
         );
     }
 
-    public void dibujar(Graphics g, int desplazamientoMapa) {
+    // Dibuja el castillo en pantalla
+    public void dibujar(
+            Entorno entorno,
+            int desplazamientoMapa
+    ) {
 
-        // Calculamos la posición X del castillo en pantalla
-        int xPantalla = x - desplazamientoMapa;
-
-        // Dibujamos la imagen del castillo
-        g.drawImage(
+        entorno.dibujarImagen(
                 imagen,
-                xPantalla,
-                y,
-                ancho,
-                alto,
-                null
+                (x - desplazamientoMapa) + ancho / 2,
+                y + alto / 2,
+                0
         );
     }
 }

@@ -1,8 +1,8 @@
 package entidades;
 
-import java.awt.Graphics;
+
+import entorno.Entorno;
 import java.awt.Image;
-import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 public class Princesa extends Entidad {
@@ -27,7 +27,11 @@ public class Princesa extends Entidad {
 
         ImageIcon icono =
                 new ImageIcon("img/princesa.png");
-        imagen = icono.getImage();
+
+        imagen = icono.getImage().getScaledInstance(
+                ancho,
+                alto,
+                Image.SCALE_SMOOTH);
     }
 
     public void moverIzquierda() {
@@ -79,9 +83,78 @@ public class Princesa extends Entidad {
 
     // Actualiza movimiento y colisiones
     public void actualizar(
-            ArrayList<Plataforma> plataformas,
-            int desplazamientoMapa
-    ) {
+            Plataforma piso1,
+            Plataforma piso2,
+            Plataforma piso3,
+            Plataforma piso4,
+            Plataforma piso5,
+            Plataforma piso6,
+            Plataforma piso7,
+            Plataforma piso8,
+            Plataforma piso9,
+            Plataforma piso10,
+            Plataforma piso11,
+            Plataforma piso12,
+            Plataforma piso13,
+            Plataforma piso14,
+            Plataforma piso15,
+            Plataforma piso16,
+            Plataforma piso17,
+            Plataforma piso18,
+            Plataforma piso19,
+            Plataforma piso20,
+            Plataforma piso21,
+            Plataforma plataforma1,
+            Plataforma plataforma2,
+            Plataforma plataforma3,
+            Plataforma plataforma4,
+            Plataforma plataforma5,
+            Plataforma plataforma6,
+            Plataforma plataforma7,
+            Plataforma plataforma8,
+            Plataforma plataforma9,
+            Plataforma plataforma10,
+            Plataforma plataforma11,
+            Plataforma plataforma12,
+            Plataforma plataforma13,
+            Plataforma plataforma14,
+            Plataforma plataforma15,
+            int desplazamientoMapa){
+    	
+    	Plataforma[] plataformas = {
+    		    piso1,
+    		    piso2,
+    		    piso3,
+    		    piso4,
+    		    piso5,
+    		    piso6,
+    		    piso7,
+    		    piso8,
+    		    piso9,
+    		    piso10,
+    		    piso11,
+    		    piso12,
+    		    piso13,
+    		    piso14,
+    		    piso15,
+    		    piso16, piso17, piso18,
+    		    piso19, piso20, piso21,
+    		    plataforma1,
+    		    plataforma2,
+    		    plataforma3,
+    		    plataforma4,
+    		    plataforma5,
+    		    plataforma6,
+    		    plataforma7,
+    		    plataforma8,
+    		    plataforma9,
+    		    plataforma10,
+    		    plataforma11,
+    		    plataforma12,
+    		    plataforma13,
+    		    plataforma14,
+    		    plataforma15
+    		};
 
         // =========================
         // MOVIMIENTO HORIZONTAL
@@ -91,6 +164,10 @@ public class Princesa extends Entidad {
 
         // Revisamos colisiones laterales
         for (Plataforma p : plataformas) {
+        	
+        	 if (p == null) {
+        	        continue;
+        	   }
 
             if (getBoundsCuerpo().intersects(
                     p.getBoundsReal(desplazamientoMapa))) {
@@ -208,15 +285,13 @@ public class Princesa extends Entidad {
     }
 
     // Dibuja la princesa en pantalla
-    public void dibujar(Graphics g) {
+    public void dibujar(Entorno entorno) {
 
-        g.drawImage(
+        entorno.dibujarImagen(
                 imagen,
-                x,
-                y,
-                ancho,
-                alto,
-                null
+                x + ancho / 2,
+                y + alto / 2,
+                0
         );
     }
 }

@@ -1,6 +1,6 @@
 package entidades;
 
-import java.awt.Graphics;
+import entorno.Entorno;
 import java.awt.Image;
 import java.awt.Rectangle;
 
@@ -20,7 +20,9 @@ public class Enemigo extends Entidad {
         this.alto = 40;
         
         ImageIcon icono = new ImageIcon("img/enemigo.png");
-        imagen = icono.getImage();
+
+        imagen = icono.getImage().getScaledInstance(
+        ancho,alto,Image.SCALE_SMOOTH);
 
         // Definimos la velocidad horizontal
         // direccion = 1 derecha, -1 izquierda
@@ -61,15 +63,15 @@ public class Enemigo extends Entidad {
     }
 
     // Dibuja el enemigo en pantalla
-    public void dibujar(Graphics g, int desplazamientoMapa) {
+    public void dibujar(
+            Entorno entorno,
+            int desplazamientoMapa) {
 
-        g.drawImage(
+        entorno.dibujarImagen(
                 imagen,
-                x - desplazamientoMapa,
-                y,
-                ancho,
-                alto,
-                null
+                (x - desplazamientoMapa) + ancho / 2,
+                y + alto / 2,
+                0
         );
     }
 }
