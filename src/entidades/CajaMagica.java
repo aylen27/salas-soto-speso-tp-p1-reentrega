@@ -58,8 +58,12 @@ public class CajaMagica extends Entidad {
                     imagen,
                     (x - desplazamientoMapa) + ancho / 2,
                     y + alto / 2,
+<<<<<<< HEAD
                     0,
                     0.2
+=======
+                    0
+>>>>>>> b48b458faa6379a7731ca1982bcce60cbfa11aa6
             );
         }
     }
