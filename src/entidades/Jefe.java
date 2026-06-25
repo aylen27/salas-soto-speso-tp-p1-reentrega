@@ -2,7 +2,6 @@ package entidades;
 
 import java.awt.Color;
 import entorno.Entorno;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
 import javax.swing.ImageIcon;
@@ -17,34 +16,25 @@ public class Jefe extends Entidad {
     public Jefe(int x, int y) {
         this.x = x;
         this.y = y;
-
         this.ancho = 100;
         this.alto = 120;
-
         this.vidas = 10;
 
         ImageIcon icono = new ImageIcon("img/bowser.png");
-
-        imagen = icono.getImage().getScaledInstance(
-                ancho,
-                alto,
-                Image.SCALE_SMOOTH);
+        imagen = icono.getImage().getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
 
         contadorAtaque = 0;
-      
         this.direccionY = 1; 
     }
 
     public void actualizar() {
-        // Movimiento vertical flotante
+        // Movimiento vertical
         y += direccionY * 2;
 
-  
+        // Rebote en los límites
         if (y <= 150) {
             direccionY = 1;
-        }
-      
-        else if (y >= 400) {
+        } else if (y >= 400) {
             direccionY = -1;
         }
 
@@ -52,24 +42,14 @@ public class Jefe extends Entidad {
     }
 
     public ProyectilEnemigo intentarAtacar(int princesaX, int princesaY, int desplazamientoMapa) {
-  
         if (contadorAtaque >= 120) {
-
             contadorAtaque = 0;
 
             int origenX = x - desplazamientoMapa + (ancho / 2);
-
             int origenY = y + (alto / 2);
 
-            
-            return new ProyectilEnemigo(
-                    origenX,
-                    origenY,
-                    princesaX,
-                    princesaY
-            );
+            return new ProyectilEnemigo(origenX, origenY, princesaX, princesaY);
         }
-
         return null;
     }
 
@@ -81,35 +61,24 @@ public class Jefe extends Entidad {
         return vidas;
     }
 
-    
     public Rectangle getBoundsReal(int desplazamientoMapa) {
-        return new Rectangle(
-                x - desplazamientoMapa,
-                y,
-                ancho,
-                alto
-        );
+        return new Rectangle(x - desplazamientoMapa, y, ancho, alto);
     }
 
-   
     public void dibujar(Entorno entorno, int desplazamientoMapa) {
-     
-        entorno.dibujarImagen(
-                imagen,
-                (x - desplazamientoMapa) + ancho / 2,
-                y + alto / 2,
-                0
-        );
+        // Dibujar al jefe
+        entorno.dibujarImagen(imagen, (x - desplazamientoMapa) + ancho / 2, y + alto / 2, 0);
 
-        int barraAncho = 100; 
+        // Barra de vida (Fondo gris)
+        int barraAncho = 100;
         int barraAlto = 10;
         int barraX = (x - desplazamientoMapa);
-        int barraY = y - 20; 
+        int barraY = y - 20;
 
-        entorno.dibujarRectangulo(barraX + ancho/2, barraY, barraAncho, barraAlto, 0, Color.GRAY);
+        entorno.dibujarRectangulo(barraX + ancho / 2, barraY, barraAncho, barraAlto, 0, Color.GRAY);
 
-      
+        // Vida actual (Barra roja)
         double vidaProporcional = (vidas / 10.0) * barraAncho;
-        entorno.dibujarRectangulo(barraX + (int)vidaProporcional/2, barraY, (int)vidaProporcional, barraAlto, 0, Color.RED);
+        entorno.dibujarRectangulo(barraX + (int)vidaProporcional / 2, barraY, (int)vidaProporcional, barraAlto, 0, Color.RED);
     }
 }
