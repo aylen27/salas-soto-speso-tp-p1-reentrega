@@ -83,15 +83,5 @@ public class Jefe extends Entidad {
         double vidaProporcional = (vidas / 10.0) * barraAncho;
         entorno.dibujarRectangulo(barraX + (int)vidaProporcional/2, barraY, (int)vidaProporcional, barraAlto, 0, Color.RED);
         entorno.dibujarImagen(imagen, (x - desplazamientoMapa) + ancho / 2, y + alto / 2, 0);
-
-        int barraAncho = 100;
-        int barraAlto = 10;
-        int barraX = (x - desplazamientoMapa);
-        int barraY = y - 20;
-
-        entorno.dibujarRectangulo(barraX + ancho / 2, barraY, barraAncho, barraAlto, 0, Color.GRAY);
-
-        double vidaProporcional = (vidas / 10.0) * barraAncho;
-        entorno.dibujarRectangulo(barraX + (int)vidaProporcional / 2, barraY, (int)vidaProporcional, barraAlto, 0, Color.RED);
     }
 }
