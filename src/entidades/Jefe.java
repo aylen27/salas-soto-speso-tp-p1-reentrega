@@ -100,11 +100,26 @@ public class Jefe extends Entidad {
 
     // Dibuja el jefe en pantalla
     public void dibujar(Entorno entorno, int desplazamientoMapa) {
+        // 1. Dibujamos la imagen del jefe
         entorno.dibujarImagen(
                 imagen,
                 (x - desplazamientoMapa) + ancho / 2,
                 y + alto / 2,
                 0
         );
+
+        // 2. Dibujamos la barra de vida arriba del jefe
+        int barraAncho = 100; // Mismo ancho que el jefe
+        int barraAlto = 10;
+        int barraX = (x - desplazamientoMapa);
+        int barraY = y - 20; // 20 píxeles arriba del jefe
+
+        // Fondo de la barra (Gris)
+        entorno.dibujarRectangulo(barraX + ancho/2, barraY, barraAncho, barraAlto, 0, Color.GRAY);
+
+        // Vida actual (Roja)
+        // Calculamos el ancho proporcional a las vidas restantes (vidas/10 * 100)
+        double vidaProporcional = (vidas / 10.0) * barraAncho;
+        entorno.dibujarRectangulo(barraX + (int)vidaProporcional/2, barraY, (int)vidaProporcional, barraAlto, 0, Color.RED);
     }
 }

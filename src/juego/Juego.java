@@ -13,6 +13,7 @@ import entidades.CajaMagica;
 import entidades.Jefe;
 import entidades.ProyectilEnemigo;
 import entidades.Moneda;
+import sonidos.Sonido;
 import util.Constantes;
 import entorno.Entorno;
 import entorno.InterfaceJuego;
@@ -22,7 +23,7 @@ public class Juego extends InterfaceJuego {
     private Entorno entorno;
     private Princesa princesa;
     private int cooldownMuerte = 0;
-    
+
     // Bloques de piso
     private Plataforma piso1;
     private Plataforma piso2;
@@ -240,7 +241,7 @@ public class Juego extends InterfaceJuego {
 
         puntaje = 0;
         iconoMonedaInterfaz = new ImageIcon("img/moneda.png").getImage();
-    
+        Sonido.reproducirEfecto("src/sonidos/musica.wav");
     }
     
     private void reiniciarJuego() {
@@ -275,6 +276,8 @@ public class Juego extends InterfaceJuego {
         moneda3 = new Moneda(2300,150);
 
         puntaje = 0;
+        
+        Sonido.reproducirEfecto("src/sonidos/musica.wav");
     }
     
     public void crearPlataformas() {
@@ -345,9 +348,12 @@ public class Juego extends InterfaceJuego {
                 || entorno.sePresiono('w') 
                 || entorno.sePresiono(entorno.TECLA_ARRIBA)) {
             princesa.saltar();
+            Sonido.reproducirEfecto("src/sonidos/salto.wav");
         }
 
         if (entorno.sePresionoBoton(entorno.BOTON_IZQUIERDO) && proyectil == null) {
+        	
+        		Sonido.reproducirEfecto("src/sonidos/disparo.wav");
             proyectil = new Proyectil(
                     princesa.getX() + 25,
                     princesa.getY() + 25,
@@ -441,12 +447,14 @@ public class Juego extends InterfaceJuego {
         if (enemigo1 != null) {
             if (princesa.getBounds().intersects(enemigo1.getBoundsReal(desplazamientoMapa))) {
                 princesa.perderVida();
+                Sonido.reproducirEfecto("src/sonidos/golpe.wav");
             }
 
             if (proyectil != null &&
                 proyectil.getBounds().intersects(enemigo1.getBoundsReal(desplazamientoMapa))) {
 
                 puntaje += 50;
+                Sonido.reproducirEfecto("src/sonidos/enemigo.wav");
                 enemigo1 = new Enemigo(desplazamientoMapa + 900, baseY, -1);
                 proyectil = null;
             }
@@ -455,12 +463,14 @@ public class Juego extends InterfaceJuego {
         if (enemigo2 != null) {
             if (princesa.getBounds().intersects(enemigo2.getBoundsReal(desplazamientoMapa))) {
                 princesa.perderVida();
+                Sonido.reproducirEfecto("src/sonidos/golpe.wav");
             }
 
             if (proyectil != null &&
                 proyectil.getBounds().intersects(enemigo2.getBoundsReal(desplazamientoMapa))) {
 
                 puntaje += 50;
+                Sonido.reproducirEfecto("src/sonidos/enemigo.wav");
                 enemigo2 = new Enemigo(desplazamientoMapa + 1100, baseY + 100, -1);
                 proyectil = null;
             }
@@ -469,12 +479,14 @@ public class Juego extends InterfaceJuego {
         if (enemigo3 != null) {
             if (princesa.getBounds().intersects(enemigo3.getBoundsReal(desplazamientoMapa))) {
                 princesa.perderVida();
+                Sonido.reproducirEfecto("sonidos/golpe.wav");
             }
 
             if (proyectil != null &&
                 proyectil.getBounds().intersects(enemigo3.getBoundsReal(desplazamientoMapa))) {
 
                 puntaje += 50;
+                Sonido.reproducirEfecto("src/sonidos/enemigo.wav");
                 enemigo3 = new Enemigo(desplazamientoMapa + 1300, baseY + 200, -1);
                 proyectil = null;
             }
@@ -483,12 +495,14 @@ public class Juego extends InterfaceJuego {
         if (enemigo4 != null) {
             if (princesa.getBounds().intersects(enemigo4.getBoundsReal(desplazamientoMapa))) {
                 princesa.perderVida();
+                Sonido.reproducirEfecto("src/sonidos/golpe.wav");
             }
 
             if (proyectil != null &&
                 proyectil.getBounds().intersects(enemigo4.getBoundsReal(desplazamientoMapa))) {
 
                 puntaje += 50;
+                Sonido.reproducirEfecto("src/sonidos/enemigo.wav");
                 enemigo4 = new Enemigo(desplazamientoMapa + 1500, baseY + 100, -1);
                 proyectil = null;
             }
@@ -497,12 +511,14 @@ public class Juego extends InterfaceJuego {
         if (enemigo5 != null) {
             if (princesa.getBounds().intersects(enemigo5.getBoundsReal(desplazamientoMapa))) {
                 princesa.perderVida();
+                Sonido.reproducirEfecto("src/sonidos/golpe.wav");
             }
 
             if (proyectil != null &&
                 proyectil.getBounds().intersects(enemigo5.getBoundsReal(desplazamientoMapa))) {
 
                 puntaje += 50;
+                Sonido.reproducirEfecto("src/sonidos/enemigo.wav");
                 enemigo5 = new Enemigo(desplazamientoMapa + 1700, baseY + 200, -1);
                 proyectil = null;
             }
@@ -511,6 +527,7 @@ public class Juego extends InterfaceJuego {
         if (saltarin1 != null) {
             if (princesa.getBounds().intersects(saltarin1.getBoundsReal(desplazamientoMapa))) {
                 princesa.perderVida();
+                Sonido.reproducirEfecto("src/sonidos/golpe.wav");
 
                 int nuevaX = desplazamientoMapa + 800 + (cicloEnemigos * 200 % 600);
                 saltarin1 = new EnemigoSaltarin(nuevaX, 100);
@@ -520,6 +537,7 @@ public class Juego extends InterfaceJuego {
                 proyectil.getBounds().intersects(saltarin1.getBoundsReal(desplazamientoMapa))) {
 
                 puntaje += 150;
+                Sonido.reproducirEfecto("src/sonidos/enemigo.wav");
                 proyectil = null;
 
                 int nuevaX = desplazamientoMapa + 800 + (cicloEnemigos * 200 % 600);
@@ -575,6 +593,7 @@ public class Juego extends InterfaceJuego {
                 cajaMagica.getBoundsReal(desplazamientoMapa))) {
 
             princesa.ganarVida();
+            Sonido.reproducirEfecto("src/sonidos/vida.wav");
             cajaMagica = null;
             return;
         }
@@ -588,16 +607,19 @@ public class Juego extends InterfaceJuego {
     public void verificarMonedas() {
     		if (moneda1 != null && princesa.getBounds().intersects(moneda1.getBounds(desplazamientoMapa))) {
     			puntaje += 100;
+    			Sonido.reproducirEfecto("src/sonidos/moneda.wav");
     			moneda1 = new Moneda(desplazamientoMapa + 800 + (cicloMonedas * 120), 150);
     		}
 
     		if (moneda2 != null && princesa.getBounds().intersects(moneda2.getBounds(desplazamientoMapa))) {
     	    		puntaje += 100;
+    	    		Sonido.reproducirEfecto("src/sonidos/moneda.wav");
     	    		moneda2 = new Moneda(desplazamientoMapa + 1100 + (cicloMonedas * 150), 250);
     		}
 
     		if (moneda3 != null && princesa.getBounds().intersects(moneda3.getBounds(desplazamientoMapa))) {
     			puntaje += 100;
+    			Sonido.reproducirEfecto("src/sonidos/moneda.wav");
     			moneda3 = new Moneda(desplazamientoMapa + 1400 + (cicloMonedas * 180), 350);
     		}
     }
@@ -608,7 +630,9 @@ public class Juego extends InterfaceJuego {
             jefe == null &&
             princesa.getBounds().intersects(
                 castillo.getBoundsReal(desplazamientoMapa))) {
-
+        	
+        		Sonido.detenerMusica();
+        		Sonido.reproducirEfecto("src/sonidos/victoria.wav");
             victoriaIniciada = true;
             mostrandoAnimacionVictoria = true;
             inicioAnimacionVictoria = System.currentTimeMillis();
@@ -619,7 +643,11 @@ public class Juego extends InterfaceJuego {
         if (princesa.getY() > Constantes.ALTO) {
             princesa.perderVida(); princesa.setX(400); princesa.setY(200);
         }
-        if (princesa.getVidas() <= 0) perdido = true;
+        if (princesa.getVidas() <= 0 && !perdido) {
+            perdido = true;
+            Sonido.detenerMusica();
+            Sonido.reproducirEfecto("src/sonidos/game over.wav");
+        }
     }
     
 
