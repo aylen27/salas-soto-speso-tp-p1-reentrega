@@ -66,8 +66,6 @@ public class Jefe extends Entidad {
     }
 
     public void dibujar(Entorno entorno, int desplazamientoMapa) {
-<<<<<<< HEAD
-        // 1. Dibujamos la imagen del jefe
         entorno.dibujarImagen(
                 imagen,
                 (x - desplazamientoMapa) + ancho / 2,
@@ -75,24 +73,17 @@ public class Jefe extends Entidad {
                 0
         );
 
-        // 2. Dibujamos la barra de vida arriba del jefe
-        int barraAncho = 100; // Mismo ancho que el jefe
+        int barraAncho = 100;e
         int barraAlto = 10;
         int barraX = (x - desplazamientoMapa);
-        int barraY = y - 20; // 20 píxeles arriba del jefe
+        int barraY = y - 20;
 
-        // Fondo de la barra (Gris)
         entorno.dibujarRectangulo(barraX + ancho/2, barraY, barraAncho, barraAlto, 0, Color.GRAY);
 
-        // Vida actual (Roja)
-        // Calculamos el ancho proporcional a las vidas restantes (vidas/10 * 100)
         double vidaProporcional = (vidas / 10.0) * barraAncho;
         entorno.dibujarRectangulo(barraX + (int)vidaProporcional/2, barraY, (int)vidaProporcional, barraAlto, 0, Color.RED);
-=======
-        // Dibujar al jefe
         entorno.dibujarImagen(imagen, (x - desplazamientoMapa) + ancho / 2, y + alto / 2, 0);
 
-        // Barra de vida (Fondo gris)
         int barraAncho = 100;
         int barraAlto = 10;
         int barraX = (x - desplazamientoMapa);
@@ -100,9 +91,7 @@ public class Jefe extends Entidad {
 
         entorno.dibujarRectangulo(barraX + ancho / 2, barraY, barraAncho, barraAlto, 0, Color.GRAY);
 
-        // Vida actual (Barra roja)
         double vidaProporcional = (vidas / 10.0) * barraAncho;
         entorno.dibujarRectangulo(barraX + (int)vidaProporcional / 2, barraY, (int)vidaProporcional, barraAlto, 0, Color.RED);
->>>>>>> fbfc459708a4990c64fafbb779a4f49c57b2496f
     }
 }
