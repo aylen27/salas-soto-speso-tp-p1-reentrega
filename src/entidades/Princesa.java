@@ -11,6 +11,7 @@ public class Princesa extends Entidad {
     private boolean saltando;
     private boolean cayendo;
     private Image imagen;
+    private int invulnerable = 0;
 
     public Princesa(int x, int y) {
 
@@ -44,6 +45,15 @@ public class Princesa extends Entidad {
 
     public void detener() {
         velocidadX = 0;
+    }
+    
+    public java.awt.Rectangle getBounds() {
+
+        return new java.awt.Rectangle(
+                x,
+                y,
+                ancho,
+                alto);
     }
 
     public void saltar() {
@@ -121,7 +131,12 @@ public class Princesa extends Entidad {
             Plataforma plataforma15,
             int desplazamientoMapa){
     	
+    	if (invulnerable > 0) {
+    	    invulnerable--;
+    	}
+    	
     	Plataforma[] plataformas = {
+    			
     		    piso1,
     		    piso2,
     		    piso3,
@@ -270,7 +285,10 @@ public class Princesa extends Entidad {
     }
 
     public void perderVida() {
-        vidas--;
+    		if(invulnerable == 0){
+    			vidas--;
+    			invulnerable = 60;
+    		}
     }
 
     public void ganarVida() {
@@ -286,6 +304,11 @@ public class Princesa extends Entidad {
 
     // Dibuja la princesa en pantalla
     public void dibujar(Entorno entorno) {
+
+        // Mientras es invulnerable parpadea
+        if (invulnerable > 0 && invulnerable % 10 < 5) {
+            return;
+        }
 
         entorno.dibujarImagen(
                 imagen,

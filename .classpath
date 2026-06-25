@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-<<<<<<< HEAD
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
-=======
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21">
->>>>>>> b48b458faa6379a7731ca1982bcce60cbfa11aa6
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-<<<<<<< HEAD
 	<classpathentry exported="true" kind="lib" path="entorno.jar"/>
-=======
-	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="C:/Users/Fravega/Downloads/ProyectoLimpio/ProyectoLimpio/entorno.jar"/>
->>>>>>> b48b458faa6379a7731ca1982bcce60cbfa11aa6
 	<classpathentry kind="output" path="bin"/>
 </classpath>

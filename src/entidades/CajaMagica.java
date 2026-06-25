@@ -60,7 +60,6 @@ public class CajaMagica extends Entidad {
                     y + alto / 2,
                     0,
                     0.2
-                    0
             );
         }
     }
